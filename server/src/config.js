@@ -14,5 +14,5 @@ if (existsSync(envPath)) {
 
 export const config = {
   groqApiKey: process.env.GROQ_API_KEY || "",
-  groqModel: process.env.GROQ_MODEL || "llama-3.3-70b-versatile",
+  groqModel: process.env.GROQ_MODEL || "llama-3.1-8b-instant",
 };
