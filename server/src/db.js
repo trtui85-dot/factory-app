@@ -1,19 +1,14 @@
 import pg from "pg";
 const { Pool } = pg;
 
-const poolConfig = process.env.DATABASE_URL
-  ? { connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false }, max: 10 }
-  : {
-      host: process.env.DB_HOST || "localhost",
-      port: Number(process.env.DB_PORT) || 5432,
-      user: process.env.DB_USER || "postgres",
-      password: process.env.DB_PASSWORD || "",
-      database: process.env.DB_NAME || "factory_manager",
-      ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
-      max: 10,
-    };
+const DB_URL = process.env.DATABASE_URL || "postgresql://factory_manager_user:apDO6DzshNP0oLCKmACPunlg53BX0W97@dpg-da2crt15efls73a0lhn0-a/factory_manager";
+console.log("DB_URL present:", !!process.env.DATABASE_URL);
 
-const pool = new Pool(poolConfig);
+const pool = new Pool({
+  connectionString: DB_URL,
+  ssl: { rejectUnauthorized: false },
+  max: 10,
+});
 
 const SCHEMA = `
 CREATE TABLE IF NOT EXISTS users (
