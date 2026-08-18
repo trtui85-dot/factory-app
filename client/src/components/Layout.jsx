@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../auth";
 import { setLang } from "../i18n";
-import Assistant from "./Assistant";
+
 
 const NAV = [
   { to: "/", key: "dashboard", icon: LayoutDashboard },
@@ -104,8 +104,6 @@ export default function Layout() {
             SIR.MR
           </a>
         </footer>
-
-        <Assistant />
 
         <nav className="bottom-nav">
           {nav.slice(0, 3).map((n) => {

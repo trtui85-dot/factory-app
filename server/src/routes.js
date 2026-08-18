@@ -1,4 +1,4 @@
-import { authRouter, authRequired, requireModule, requireAdmin } from "./auth.js";
+import { authRouter, authRequired, requireModule } from "./auth.js";
 import { rawMaterialsRouter } from "./routes/rawMaterials.js";
 import { productsRouter } from "./routes/products.js";
 import { recipesRouter } from "./routes/recipes.js";
@@ -8,7 +8,6 @@ import { salesRouter } from "./routes/sales.js";
 import { expensesRouter } from "./routes/expenses.js";
 import { workersRouter } from "./routes/workers.js";
 import { dashboardRouter } from "./routes/dashboard.js";
-import { assistantRouter } from "./routes/assistant.js";
 
 export function registerRoutes(app) {
   app.use("/api/auth", authRouter);
@@ -21,7 +20,6 @@ export function registerRoutes(app) {
   app.use("/api", authRequired, requireModule("expenses", "/expenses"), expensesRouter);
   app.use("/api", authRequired, requireModule("workers", "/workers"), workersRouter);
   app.use("/api", authRequired, requireModule("dashboard", "/dashboard"), dashboardRouter);
-  app.use("/api", authRequired, requireAdmin("/assistant"), assistantRouter);
 
   app.use("/api", (req, res) => {
     res.status(404).json({ error: { code: "NOT_FOUND", message: "Route not found" } });
