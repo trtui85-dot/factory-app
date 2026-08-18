@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: factory-app
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: factory-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: factory-db
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: factory-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: factory-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: factory-db
+          property: database
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GROQ_API_KEY
+        sync: false
+      - key: NODE_ENV
+        value: production
+
+databases:
+  - name: factory-db
+    plan: free
+    databaseName: factory_manager
