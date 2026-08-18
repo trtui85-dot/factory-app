@@ -202,6 +202,13 @@ async function ensure() {
 
 export async function initDb() {
   await ensure();
+  const bcrypt = await import("bcryptjs");
+  const admin = await pool.query("SELECT id FROM users WHERE phone = $1", ["22222222"]);
+  if (admin.rows.length === 0) {
+    const hash = bcrypt.default.hashSync("2222", 10);
+    await pool.query("INSERT INTO users (phone, pin, name, role) VALUES ($1, $2, $3, 'OWNER')", ["22222222", hash, "مدير المصنع"]);
+    console.log("Admin created: 22222222 / 2222");
+  }
 }
 
 const toPgDate = (v) => {
